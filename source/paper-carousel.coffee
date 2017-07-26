@@ -1,6 +1,18 @@
 Polymer
 	is: 'paper-carousel'
 
+	properties:
+		totalItems:
+			type: Number
+			value: 0
+			readOnly: true
+			notify: true
+		currentItem:
+			type: Number
+			value: 0
+			readOnly: true
+			notify: true
+
 	behaviors: [
 		Polymer.IronResizableBehavior
 	]
@@ -105,6 +117,8 @@ Polymer
 			for child in moduleWrapper.children
 				if child.localName != 'template'
 					totalItems++
+
+		module._setTotalItems(totalItems)
 
 		return totalItems
 
@@ -363,6 +377,8 @@ Polymer
 		activeDots = module.querySelectorAll('.paper-carousel_dot')
 		activeDotLine = module.querySelector('.paper-carousel_dot-line')
 		dotKey = 0
+
+		module._setCurrentItem(@getCurrentItem());
 
 		# add class to active dot
 		while dotKey < activeDots.length
